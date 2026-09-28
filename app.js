@@ -70,10 +70,8 @@
 
   function refreshSupplyOptions(){
     const selected=activeEyes().map(product),allSelected=selected.length>0&&selected.every(Boolean);
-    const oneMonth=allSelected&&selected.every(item=>item.frequency===1&&item.pack===30);
-    const threeMonths=allSelected&&selected.every(item=>item.frequency===1&&(item.pack===30||item.pack===90));
-    const choices=[...(oneMonth?[1]:[]),...(threeMonths?[3]:[]),6,12],select=$('supply-months'),previous=Number(select.value)||12;
-    const next=choices.includes(previous)?previous:6;
+    const choices=allSelected?core.supplyChoices(selected):[6,12],select=$('supply-months'),previous=Number(select.value)||12;
+    const next=choices.includes(previous)?previous:choices[choices.length-1];
     select.innerHTML=choices.map(months=>`<option value="${months}" ${months===next?'selected':''}>${months} month${months===1?'':'s'}</option>`).join('');
     if(next!==previous)for(const eye of eyes)$(`boxes-${eye}`).dataset.manual='false';
   }
@@ -81,10 +79,8 @@
   function refreshAltSupplyOptions(){
     if(!alternativeEnabled)return;
     const selected=altActiveEyes().map(altProduct),allSelected=selected.length>0&&selected.every(Boolean);
-    const oneMonth=allSelected&&selected.every(item=>item.frequency===1&&item.pack===30);
-    const threeMonths=allSelected&&selected.every(item=>item.frequency===1&&(item.pack===30||item.pack===90));
-    const choices=[...(oneMonth?[1]:[]),...(threeMonths?[3]:[]),6,12],select=$('alt-supply-months'),previous=Number(select.value)||12;
-    const next=choices.includes(previous)?previous:6;
+    const choices=allSelected?core.supplyChoices(selected):[6,12],select=$('alt-supply-months'),previous=Number(select.value)||12;
+    const next=choices.includes(previous)?previous:choices[choices.length-1];
     select.innerHTML=choices.map(months=>`<option value="${months}" ${months===next?'selected':''}>${months} month${months===1?'':'s'}</option>`).join('');
     if(next!==previous)for(const eye of eyes)$(`alt-boxes-${eye}`).dataset.manual='false';
   }
@@ -212,3 +208,4 @@
   });
   window.addEventListener('storage',event=>{if(event.key==='contact-lens-order-requests-v1')renderOrderRequests();if(event.key===storeKey){try{const saved=JSON.parse(event.newValue||'null');rebateRules=Array.isArray(saved?.rebateRules)?saved.rebateRules:[];const settings=saved?.officeRebates||{};officeRebates={daily:Number.isFinite(Number(settings.daily))&&Number(settings.daily)>=0?Number(settings.daily):50,reusable:Number.isFinite(Number(settings.reusable))&&Number(settings.reusable)>=0?Number(settings.reusable):25};render();}catch{}}});
 })();
+
