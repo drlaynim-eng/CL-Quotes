@@ -1,5 +1,5 @@
 const assert=require('node:assert/strict');
-const {suggestedBoxes,fullAnnualBoxes,officeQuote,officeQuoteLines,retailerQuote,retailerQuoteLines}=require('../quote-core.js');
+const {suggestedBoxes,fullAnnualBoxes,supplyChoices,officeQuote,officeQuoteLines,retailerQuote,retailerQuoteLines}=require('../quote-core.js');
 const {catalog}=require('../catalog.js');
 
 assert.equal(catalog.length,53);
@@ -31,6 +31,13 @@ assert.equal(fullAnnualBoxes(6,30,1),2);
 assert.equal(fullAnnualBoxes(24,14,1),1);
 assert.equal(fullAnnualBoxes(12,14,1),2);
 assert.equal(fullAnnualBoxes(12,14,2),4);
+assert.deepEqual(supplyChoices([{pack:30,frequency:1}]),[1,3]);
+assert.deepEqual(supplyChoices([{pack:90,frequency:1}]),[3,6,12]);
+assert.deepEqual(supplyChoices([{pack:30,frequency:1},{pack:90,frequency:1}]),[3]);
+assert.deepEqual(supplyChoices([{pack:24,frequency:14}]),[12]);
+assert.deepEqual(supplyChoices([{pack:24,frequency:14},{pack:12,frequency:14}]),[12]);
+assert.deepEqual(supplyChoices([{pack:12,frequency:14}]),[6,12]);
+assert.deepEqual(supplyChoices([{pack:6,frequency:30}]),[6,12]);
 
 assert.deepEqual(officeQuote({boxes:4,pricePerBox:80,insuranceAllowance:150,instantDiscount:20,fees:0,rebate:40}),{
   boxes:4,gross:320,discountUsed:20,fees:0,allowanceUsed:150,dueToday:150,rebateUsed:40,effectiveTotal:110,effectivePerBox:27.5
@@ -50,3 +57,4 @@ assert.equal(retailerQuote({...online,discount:1000}).effectiveTotal,0);
 assert.equal(retailerQuoteLines({lines:[{boxes:2,pricePerBox:70},{boxes:3,pricePerBox:90}],fees:15,discount:10,rebate:20}).effectiveTotal,395);
 
 console.log('Quote calculations passed.');
+
