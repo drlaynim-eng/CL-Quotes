@@ -11,6 +11,7 @@
     const pack=whole(lensesPerBox),days=whole(replacementDays),eyeCount=whole(eyes);
     if(!pack||!days||!eyeCount)return 0;
     if(pack===24&&days===14)return eyeCount;
+    if(pack===12&&days===14)return (whole(months)<=6?1:2)*eyeCount;
     if(pack===30&&days===1)return eyeCount;
     return Math.ceil((whole(months)*30/days)/pack)*eyeCount;
   }
@@ -19,6 +20,7 @@
     const pack=whole(lensesPerBox),days=whole(replacementDays),eyeCount=whole(eyes);
     if(!pack||!days||!eyeCount)return 0;
     if(pack===24&&days===14)return eyeCount;
+    if(pack===12&&days===14)return 2*eyeCount;
     return Math.ceil((12*30/days)/pack)*eyeCount;
   }
 
