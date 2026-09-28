@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rebate Settings</title>
+
+
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#183149;background:#f3f6fa;font-size:14px}
+*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button,.button-link{cursor:pointer;border:1px solid #cbd8e4;border-radius:9px;padding:9px 13px;background:#fff;color:#183149}.button-link{display:inline-block;text-decoration:none}button:hover,.button-link:hover{background:#edf6fa}button:focus-visible,input:focus-visible,select:focus-visible,.button-link:focus-visible{outline:3px solid #91c8df;outline-offset:2px}
+.shell{max-width:1320px;margin:auto}.topbar{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:30px 28px 24px}.topbar h1{margin:5px 0;font-size:29px;letter-spacing:-.04em}.topbar p{margin:0;color:#526b7e}.eyebrow{color:#187087;font-weight:750;letter-spacing:.14em;font-size:11px}.top-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.status,.pill{padding:7px 10px;border-radius:7px;background:#e5f2f6;color:#17647a;font-size:12px;font-weight:650}.quote-actions,.header-menu{position:relative}.menu-button{display:inline-flex;align-items:center;gap:8px}.menu-chevron{font-size:17px;line-height:.8;transition:transform .15s ease}.menu-button[aria-expanded="true"] .menu-chevron{transform:rotate(180deg)}.icon-menu-button{width:41px;height:39px;padding:0;display:grid;place-items:center}.hamburger{display:grid;gap:4px;width:18px}.hamburger span{display:block;height:2px;border-radius:2px;background:currentColor}#create-quote{background:#176d83;color:white;border-color:#176d83;font-weight:700}.quote-delivery,.header-menu-panel{position:absolute;right:0;top:calc(100% + 8px);z-index:10;width:220px;padding:8px;border:1px solid #cbd8e4;border-radius:11px;background:#fff;box-shadow:0 8px 24px #19364c26}.quote-delivery button,.menu-item{display:block;width:100%;text-align:left;border:0;background:transparent;padding:9px 13px;border-radius:7px;color:#183149;text-decoration:none}.quote-delivery button:hover,.menu-item:hover{background:#edf6fa}main{padding:0 28px 32px}.intro,.retailer-notice{border:1px solid #c8e0eb;background:#edf8fc;color:#28566a;padding:14px 16px;border-radius:10px;line-height:1.5;margin-bottom:18px}.panel{background:white;border:1px solid #d7e2ec;border-radius:14px;box-shadow:0 3px 12px #19364c0b;padding:23px;margin-bottom:18px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:19px}.section-head>div{display:flex;align-items:center;gap:11px}.section-head h2{font-size:19px;letter-spacing:-.025em;margin:0}.step{display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#176d83;color:white;font-weight:750}.hint,.fine,.field-help{color:#61778a;font-size:12px;line-height:1.5}.fine{margin:16px 0 0}.fields{display:grid;gap:14px}.fields-four{grid-template-columns:repeat(4,minmax(0,1fr))}label{display:block;color:#355067;font-size:12px;font-weight:650}label input,label select{display:block;width:100%;height:39px;margin-top:6px;padding:8px 10px;border:1px solid #cbd8e4;border-radius:8px;background:white;color:#183149;font-size:14px}.field-help{display:block;margin-top:3px}.supply-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}.supply{border:1px solid #d7e2ec;border-radius:11px;padding:18px;background:#fbfdff}.supply-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.supply h3{margin:0 0 15px;font-size:17px}.text-button{background:transparent;border:0;padding:5px 0;color:#176d83;font-size:12px;text-decoration:underline}.totals{border-top:1px solid #d7e2ec;margin-top:16px;padding-top:13px}.totals .total-line,.retailer-results .total-line{display:flex;justify-content:space-between;gap:10px;margin:7px 0;color:#526b7e}.totals .total-line strong,.retailer-results .total-line strong{color:#183149}.totals .emphasis{font-size:17px;border-top:1px solid #d7e2ec;padding-top:12px;margin-top:12px;color:#183149;font-weight:750}.totals .effective{color:#176d83;font-size:16px;font-weight:750}.retailer-notice{margin-bottom:17px}.retailer-card{border:1px solid #d7e2ec;border-radius:10px;padding:17px;margin-bottom:12px}.retailer-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}.retailer-head h3{margin:0 0 6px}.retailer-head .actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.retailer-head .actions a{color:#176d83}.retailer-name{max-width:320px}.retailer-card .fields-four{margin-top:13px}.retailer-options{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:15px 0}.retailer-options label{display:flex;gap:8px;align-items:center;font-weight:500}.retailer-options input{width:auto;height:auto;margin:0}.retailer-quantities{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.retailer-quantity{padding:13px;border-radius:9px;background:#f6f9fb}.retailer-quantity h4{margin:0 0 11px}.retailer-quantity .fields{grid-template-columns:repeat(2,minmax(0,1fr))}.retailer-results{margin-top:10px}.retailer-meta{font-size:12px;color:#61778a}.secondary{color:#176d83;border-color:#a7cbd8}.summary-table{width:100%;border-collapse:collapse;text-align:right}.summary-table th,.summary-table td{padding:11px 8px;border-bottom:1px solid #e0e8ee}.summary-table th:first-child,.summary-table td:first-child{text-align:left}.summary-table th{color:#526b7e;font-size:12px}.summary-table td strong{color:#176d83}.summary-table .unverified{color:#a26723}.empty{color:#61778a;padding:13px 0}footer{padding:0 28px 28px;color:#789;font-size:12px}
+.fields-three{grid-template-columns:repeat(3,minmax(0,1fr))}.fields-two{grid-template-columns:repeat(2,minmax(0,1fr))}.section-tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.supply-choice,.eye-choice{max-width:260px;margin-bottom:16px}.eye-grid,.retailer-eyes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.eye-grid{position:relative}.eye-card{border:1px solid #d7e2ec;border-radius:11px;padding:18px;background:#fbfdff}.copy-eye{position:absolute;z-index:2;left:50%;top:30px;width:36px;height:36px;padding:0;display:grid;place-items:center;transform:translateX(-50%);border-radius:50%;border:1px solid #9fc7d5;background:#fff;color:#176d83;box-shadow:0 2px 7px #19364c1f}.copy-eye span{display:block;width:9px;height:9px;font-size:0;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg)}.copy-eye:hover{background:#e5f2f6}.eye-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.eye-head h3{margin:0;font-size:19px}.eye-head span{display:block;color:#61778a;font-size:12px;margin-top:2px}.box-field{max-width:180px;margin-top:14px}.price-source{min-height:37px}.toggle{display:flex;align-items:center;gap:9px;margin-top:16px;font-weight:600}.toggle input{width:auto;height:auto;margin:0}.retailer-eyes{margin-top:15px}.retailer-eye{padding:14px;border-radius:9px;background:#f6f9fb}.retailer-eye h4{margin:0 0 11px}.retailer-adjustments{margin-top:14px}
+.supply-choice{margin:16px 0 0}.rebate-manage{margin-top:16px}.rebate-rules{margin-top:12px;padding:16px;border:1px solid #d7e2ec;border-radius:10px;background:#f8fbfd}.rebate-rules>.fields{margin:13px 0}.rebate-rule-list{margin-top:14px}.rebate-rule{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 0;border-top:1px solid #d7e2ec}.rebate-rule small{color:#61778a}
+.option-actions{display:flex;justify-content:center;margin:-2px 0 18px}.option-actions button{font-weight:700;padding:11px 17px}.alternative-panel{border-color:#9fc7d5;box-shadow:0 4px 18px #176d8314}.alternative-panel .step{width:34px}.alternative-intro{margin:-4px 0 18px;color:#526b7e}.alternative-prices{border-top:1px solid #d7e2ec;margin-top:20px;padding-top:18px}.alternative-prices h3{margin:0 0 14px}.alternative-panel[hidden],.option-actions[hidden]{display:none!important}
+.embedded-heading{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px}.embedded-heading h3{margin:0}.primary-prices{margin-top:20px}
+.comparison-hint{margin:0 0 12px}
+.request-list{display:grid;gap:10px;margin-top:14px}.request-card{display:grid;grid-template-columns:1fr auto;gap:18px;padding:14px;border:1px solid #d7e2ec;border-radius:10px;background:#fbfdff}.request-card>div{display:flex;flex-direction:column;gap:5px}.request-card>div:last-child{align-items:flex-end}.request-card span{color:#61778a;font-size:12px}.request-status{display:inline-block;padding:5px 8px;border-radius:6px;background:#fff4da;color:#8a5a00!important;font-weight:700}.request-status.complete{background:#dff4ec;color:#13795b!important}
+@media(max-width:900px){.fields-four,.fields-three{grid-template-columns:repeat(2,minmax(0,1fr))}.retailer-head{display:block}.retailer-head .actions{margin-top:10px}}
+@media(max-width:620px){.topbar{display:block;padding:23px 16px}.top-actions{margin-top:16px}main{padding:0 12px 20px}.panel{padding:16px}.section-head{display:block}.section-tools{justify-content:space-between;margin-top:10px}.hint{display:block}.fields-four,.fields-three,.fields-two,.supply-grid,.retailer-quantities,.eye-grid,.retailer-eyes{grid-template-columns:1fr}.copy-eye{top:50%;transform:translate(-50%,-50%) rotate(90deg)}.summary-table{font-size:12px}.request-card{grid-template-columns:1fr}.request-card>div:last-child{align-items:flex-start}}
+@media print{body{background:white}.shell{max-width:none}.topbar,main{padding:0}.top-actions,.intro,.retailer-notice,.secondary,.retailer-head .actions,.text-button,.option-actions,#remove-alternative,.copy-eye,.request-inbox,footer{display:none!important}.panel{border:0;box-shadow:none;break-inside:avoid;padding:12px 0}.retailer-card{break-inside:avoid}.fields,.retailer-options,.retailer-quantities{display:none}.section-head{margin-bottom:8px}.quote-summary{page-break-before:always}}
+
+</style>
+<style>
+.rebate-page{max-width:1000px;margin:0 auto}.rebate-header{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:32px 28px 24px}.rebate-header h1{margin:5px 0;font-size:29px;letter-spacing:-.04em}.rebate-header p{margin:0;color:#526b7e}.rebate-main{padding:0 28px 34px}.section-copy{margin:-5px 0 16px;color:#61778a;line-height:1.5}.rebate-actions{display:flex;align-items:center;gap:10px;margin-top:18px}.save-status{color:#13795b;font-weight:700}.primary-rebate{background:#176d83;color:#fff;border-color:#176d83;font-weight:700}.saved-rebate{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:15px 0;border-top:1px solid #d7e2ec}.saved-rebate:first-child{border-top:0}.saved-rebate>div:first-child{display:flex;flex-direction:column;gap:4px}.saved-rebate span{color:#61778a;font-size:12px}.saved-rebate>div:last-child{display:flex;gap:8px}@media(max-width:620px){.rebate-header{display:block;padding:24px 16px}.rebate-header .button-link{margin-top:16px}.rebate-main{padding:0 12px 24px}.saved-rebate{display:block}.saved-rebate>div:last-child{margin-top:12px}}
+
+</style>
+</head>
+<body>
+  <div class="rebate-page">
+    <header class="rebate-header">
+      <div><div class="eyebrow">QUOTE SETTINGS</div><h1>Rebate settings</h1><p>Manage in-office and manufacturer annual-supply rebates.</p></div>
+      <a class="button-link" href="<?!= appUrl ?>">Back to quotes</a>
+    </header>
+    <main class="rebate-main">
+      <div class="intro">Rebates apply only when the quoted quantity qualifies as a full annual supply. One-eye and mixed-lens quotes receive the matching proportional share.</div>
+      <section class="panel rebate-editor" aria-labelledby="office-rebate-heading">
+        <div class="section-head"><div><span class="step">1</span><h2 id="office-rebate-heading">In-office rebates</h2></div></div>
+        <p class="section-copy">Enter the full two-eye annual rebate for each lens type. The quote prorates these amounts for one-eye and mixed daily/reusable orders.</p>
+        <div class="fields fields-two">
+          <label>Daily lenses — annual rebate ($)<input id="office-rebate-daily" type="number" min="0" step="0.01" inputmode="decimal"></label>
+          <label>Reusable/monthly lenses — annual rebate ($)<input id="office-rebate-reusable" type="number" min="0" step="0.01" inputmode="decimal"></label>
+        </div>
+        <div class="rebate-actions"><button id="save-office-rebates" type="button" class="primary-rebate">Save in-office rebates</button><span id="office-save-status" class="save-status" role="status"></span></div>
+      </section>
+      <section class="panel rebate-editor" aria-labelledby="editor-heading">
+        <div class="section-head"><div><span class="step">2</span><h2 id="editor-heading">Add or update a manufacturer rebate</h2></div></div>
+        <div class="fields fields-three">
+          <label>Lens family<select id="rebate-family"></select></label>
+          <label>Full annual rebate ($)<input id="rebate-rule-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
+          <label>Valid through<input id="rebate-rule-expires" type="date"></label>
+        </div>
+        <div class="rebate-actions"><button id="save-rebate-rule" type="button" class="primary-rebate">Save rebate</button><button id="clear-rebate-form" type="button" class="secondary">Clear</button></div>
+      </section>
+      <section class="panel" aria-labelledby="saved-heading">
+        <div class="section-head"><div><span class="step">3</span><h2 id="saved-heading">Saved manufacturer rebates</h2><span id="rebate-count" class="pill">0 saved</span></div></div>
+        <div id="rebate-rule-list" class="rebate-rule-list"></div>
+      </section>
+    </main>
+  </div>
+<script>
+window.GAS_MODE=true;window.CLQ_APP_URL=<?!= JSON.stringify(appUrl) ?>;
+function clqStaffKey(){let key='';try{key=sessionStorage.getItem('clq-staff-key')||'';}catch{}if(!key){key=prompt('Enter the staff access key for shared quotes and order requests:')||'';try{if(key)sessionStorage.setItem('clq-staff-key',key);}catch{}}return key;}
+function clqServerFailure(error){const message=error&&error.message?error.message:String(error||'The shared app could not complete that request.');alert(message);if(/access key/i.test(message)){try{sessionStorage.removeItem('clq-staff-key');}catch{}}}
+
+</script>
+<script>
+(function(root){
+  'use strict';
+  // Patient-facing office prices transcribed from Dr. Desk Price Book > CL on 2026-09-26.
+  // ABB costs are intentionally omitted from this patient quote tool.
+  const catalog=[
+    ['C356','Bausch + Lomb','Infuse','Infuse 90pk',90,1,142],
+    ['C370','Bausch + Lomb','Infuse','Infuse for Astigmatism 90pk',90,1,166],
+    ['C358','Bausch + Lomb','Infuse','Infuse Multifocal 90pk',90,1,183],
+    ['C348','Bausch + Lomb','Biotrue','Biotrue ONEday 30pk',30,1,42],
+    ['C349','Bausch + Lomb','Biotrue','Biotrue ONEday 90pk',90,1,95],
+    ['C351','Bausch + Lomb','Biotrue','Biotrue ONEday for Astigmatism 30pk',30,1,58],
+    ['C352','Bausch + Lomb','Biotrue','Biotrue ONEday for Astigmatism 90pk',90,1,128],
+    ['C354','Bausch + Lomb','Biotrue','Biotrue ONEday for Presbyopia 30pk',30,1,34.60],
+    ['C355','Bausch + Lomb','Biotrue','Biotrue ONEday for Presbyopia 90pk',90,1,121],
+    ['C362','Bausch + Lomb','Ultra','Ultra 6pk',6,30,77],
+    ['C366','Bausch + Lomb','Ultra','Ultra for Astigmatism 6pk',6,30,92],
+    ['C368','Bausch + Lomb','Ultra','Ultra for Presbyopia 6pk',6,30,114],
+    ['C364','Bausch + Lomb','Ultra','Ultra Multifocal for Astigmatism 6pk',6,30,182],
+    ['C183','CooperVision','Biofinity','Biofinity Energys 6pk',6,30,74],
+    ['C185','CooperVision','Biofinity','Biofinity Multifocal 6pk',6,30,122],
+    ['C187','CooperVision','Biofinity','Biofinity Toric 6pk',6,30,90],
+    ['C189','CooperVision','Biofinity','Biofinity XR 6pk',6,30,69],
+    ['C191','CooperVision','Biofinity','Biofinity XR Toric 6pk',6,30,174],
+    ['C318','CooperVision','Biofinity','Biofinity Toric Multifocal Distance 6pk',6,30,185],
+    ['C319','CooperVision','Biofinity','Biofinity Toric Multifocal Near 6pk',6,30,185],
+    ['C196','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist 30pk',30,1,59],
+    ['C197','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist 90pk',90,1,110.50],
+    ['C199','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist for Astigmatism 30pk',30,1,75],
+    ['C200','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist for Astigmatism 90pk',90,1,168],
+    ['C193','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist Multifocal 30pk',30,1,97],
+    ['C194','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist Multifocal 90pk',90,1,179],
+    ['P-AOMAX30','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day 30pk',30,1,0],
+    ['P-AOMAX90','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day 90pk',90,1,0],
+    ['P-AOMAXMF30','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day Multifocal 30pk',30,1,0],
+    ['P-AOMAXMF90','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day Multifocal 90pk',90,1,0],
+    ['P-AOMAXA30','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day for Astigmatism 30pk',30,1,0],
+    ['P-AOMAXMFA30','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day Multifocal for Astigmatism 30pk',30,1,0],
+    ['P-AO1D30','Johnson & Johnson','Acuvue Oasys 1-Day','Acuvue Oasys 1-Day with HydraLuxe 30pk',30,1,0],
+    ['C210','Johnson & Johnson','Acuvue Oasys 1-Day','Acuvue Oasys 1-Day with HydraLuxe 90pk',90,1,143],
+    ['C279','Johnson & Johnson','Acuvue Oasys 1-Day','Acuvue Oasys 1-Day with HydraLuxe for Astigmatism 30pk',30,1,65],
+    ['C280','Johnson & Johnson','Acuvue Oasys 1-Day','Acuvue Oasys 1-Day with HydraLuxe for Astigmatism 90pk',90,1,160],
+    ['C204','Johnson & Johnson','Acuvue Oasys 2-Week','Acuvue Oasys with HydraClear Plus 12pk',12,14,118],
+    ['C205','Johnson & Johnson','Acuvue Oasys 2-Week','Acuvue Oasys with HydraClear Plus 24pk',24,14,185],
+    ['C207','Johnson & Johnson','Acuvue Oasys 2-Week','Acuvue Oasys for Astigmatism 6pk',6,14,69],
+    ['P-AO2WMF6','Johnson & Johnson','Acuvue Oasys 2-Week','Acuvue Oasys Multifocal 6pk',6,14,0],
+    ['C214','Johnson & Johnson','Acuvue Vita','Acuvue Vita 12pk',12,30,153],
+    ['C215','Johnson & Johnson','Acuvue Vita','Acuvue Vita 6pk',6,30,94],
+    ['C201','Johnson & Johnson','Acuvue Vita','Acuvue Vita for Astigmatism 6pk',6,30,91],
+    ['C293','Alcon','Precision1','Precision1 30pk',30,1,50],
+    ['C294','Alcon','Precision1','Precision1 90pk',90,1,108],
+    ['C311','Alcon','Precision1','Precision1 for Astigmatism 30pk',30,1,63],
+    ['C298','Alcon','Precision1','Precision1 for Astigmatism 90pk',90,1,136],
+    ['C241','Alcon','Air Optix plus HydraGlyde','Air Optix plus HydraGlyde 6pk',6,30,81],
+    ['C235','Alcon','Air Optix plus HydraGlyde','Air Optix plus HydraGlyde for Astigmatism 6pk',6,30,101],
+    ['C181','Alcon','Air Optix plus HydraGlyde','Air Optix plus HydraGlyde Multifocal 6pk',6,30,154],
+    ['C292','Alcon','Air Optix Night & Day','Air Optix Night & Day Aqua 6pk',6,30,144],
+    ['C243','Alcon','Air Optix Colors','Air Optix Colors 2pk',2,30,67],
+    ['C244','Alcon','Air Optix Colors','Air Optix Colors 6pk',6,30,171]
+  ].map(([id,manufacturer,family,name,pack,frequency,officePrice])=>Object.freeze({id,manufacturer,family,name,pack,frequency,officePrice}));
+  const api=Object.freeze({catalog:Object.freeze(catalog),priceBookDate:'2026-09-26'});
+  if(typeof module==='object'&&module.exports)module.exports=api;
+  else root.LensCatalog=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script>
+<script>
+(()=>{
+  'use strict';
+  const storeKey='contact-lens-quotes-v3',$=id=>document.getElementById(id),catalog=window.LensCatalog.catalog;
+  const currency=value=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(value)||0);
+  const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const familyKey=item=>`${item.manufacturer}|${item.family}`;
+  const familyLabel=key=>{const [manufacturer,family]=key.split('|');return `${manufacturer} · ${family}`;};
+  const todayKey=()=>{const now=new Date(),offset=now.getTimezoneOffset()*60000;return new Date(now-offset).toISOString().slice(0,10);};
+  let state={};
+  try{state=JSON.parse(localStorage.getItem(storeKey)||'{}')||{};}catch{}
+  let rules=Array.isArray(state.rebateRules)?state.rebateRules.filter(rule=>rule?.key&&Number(rule.amount)>=0):[];
+  let officeRebates={daily:50,reusable:25,...(state.officeRebates||{})};
+  officeRebates.daily=Number.isFinite(Number(officeRebates.daily))&&Number(officeRebates.daily)>=0?Number(officeRebates.daily):50;
+  officeRebates.reusable=Number.isFinite(Number(officeRebates.reusable))&&Number(officeRebates.reusable)>=0?Number(officeRebates.reusable):25;
+
+  const keys=[...new Set(catalog.map(familyKey))].sort((a,b)=>familyLabel(a).localeCompare(familyLabel(b)));
+  $('rebate-family').innerHTML=keys.map(key=>`<option value="${esc(key)}">${esc(familyLabel(key))}</option>`).join('');
+
+  function persist(){if(window.GAS_MODE){const key=clqStaffKey();if(!key)return;google.script.run.withSuccessHandler(()=>{$('office-save-status').textContent='Saved to shared app';setTimeout(()=>{$('office-save-status').textContent='';},1800);}).withFailureHandler(clqServerFailure).saveSharedSettings({rebateRules:rules,officeRebates},key);return;}try{state=JSON.parse(localStorage.getItem(storeKey)||'{}')||{};}catch{state={};}state.rebateRules=rules;state.officeRebates=officeRebates;localStorage.setItem(storeKey,JSON.stringify(state));}
+  function clearForm(){$('rebate-rule-amount').value='';$('rebate-rule-expires').value='';$('rebate-family').focus();}
+  function render(){
+    $('rebate-count').textContent=`${rules.length} saved`;
+    $('rebate-rule-list').innerHTML=rules.length?rules.slice().sort((a,b)=>familyLabel(a.key).localeCompare(familyLabel(b.key))).map(rule=>`<article class="saved-rebate"><div><strong>${esc(familyLabel(rule.key))}</strong><span>${currency(rule.amount)} annual rebate</span><span>${rule.expires?`Valid through ${esc(rule.expires)}`:'No expiration entered'}${rule.expires&&rule.expires<todayKey()?' · Expired':''}</span></div><div><button type="button" class="secondary" data-edit-rebate="${esc(rule.key)}">Edit</button><button type="button" data-remove-rebate="${esc(rule.key)}">Remove</button></div></article>`).join(''):'<p class="empty">No manufacturer rebates saved yet.</p>';
+  }
+  function save(){
+    const key=$('rebate-family').value,raw=$('rebate-rule-amount').value,amount=Number(raw),expires=$('rebate-rule-expires').value;
+    if(!key||raw===''||!Number.isFinite(amount)||amount<0){alert('Choose a lens family and enter a valid annual rebate amount.');return;}
+    const next={key,amount:Math.round(amount*100)/100,expires},index=rules.findIndex(rule=>rule.key===key);
+    if(index>=0)rules[index]=next;else rules.push(next);
+    persist();render();clearForm();
+  }
+  function saveOfficeRebates(){
+    const daily=Number($('office-rebate-daily').value),reusable=Number($('office-rebate-reusable').value);
+    if(!Number.isFinite(daily)||daily<0||!Number.isFinite(reusable)||reusable<0){alert('Enter valid nonnegative in-office rebate amounts.');return;}
+    officeRebates={daily:Math.round(daily*100)/100,reusable:Math.round(reusable*100)/100};persist();
+    $('office-save-status').textContent='Saved';setTimeout(()=>{$('office-save-status').textContent='';},1800);
+  }
+
+  document.addEventListener('click',event=>{
+    const button=event.target.closest('button');if(!button)return;
+    if(button.id==='save-office-rebates'){saveOfficeRebates();return;}
+    if(button.id==='save-rebate-rule'){save();return;}
+    if(button.id==='clear-rebate-form'){clearForm();return;}
+    if(button.dataset.editRebate){const rule=rules.find(item=>item.key===button.dataset.editRebate);if(!rule)return;$('rebate-family').value=rule.key;$('rebate-rule-amount').value=rule.amount;$('rebate-rule-expires').value=rule.expires||'';$('rebate-rule-amount').focus();return;}
+    if(button.dataset.removeRebate){rules=rules.filter(rule=>rule.key!==button.dataset.removeRebate);persist();render();}
+  });
+  $('office-rebate-daily').value=officeRebates.daily.toFixed(2);
+  $('office-rebate-reusable').value=officeRebates.reusable.toFixed(2);
+  render();
+  if(window.GAS_MODE){const key=clqStaffKey();if(key)google.script.run.withSuccessHandler(settings=>{rules=Array.isArray(settings?.rebateRules)?settings.rebateRules:[];officeRebates=settings?.officeRebates||{daily:50,reusable:25};$('office-rebate-daily').value=Number(officeRebates.daily||0).toFixed(2);$('office-rebate-reusable').value=Number(officeRebates.reusable||0).toFixed(2);render();}).withFailureHandler(clqServerFailure).getSharedSettings(key);}
+})();
+
+</script>
+</body>
+</html>
+
