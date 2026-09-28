@@ -9,11 +9,14 @@
   let state={};
   try{state=JSON.parse(localStorage.getItem(storeKey)||'{}')||{};}catch{}
   let rules=Array.isArray(state.rebateRules)?state.rebateRules.filter(rule=>rule?.key&&Number(rule.amount)>=0):[];
+  let officeRebates={daily:50,reusable:25,...(state.officeRebates||{})};
+  officeRebates.daily=Number.isFinite(Number(officeRebates.daily))&&Number(officeRebates.daily)>=0?Number(officeRebates.daily):50;
+  officeRebates.reusable=Number.isFinite(Number(officeRebates.reusable))&&Number(officeRebates.reusable)>=0?Number(officeRebates.reusable):25;
 
   const keys=[...new Set(catalog.map(familyKey))].sort((a,b)=>familyLabel(a).localeCompare(familyLabel(b)));
   $('rebate-family').innerHTML=keys.map(key=>`<option value="${esc(key)}">${esc(familyLabel(key))}</option>`).join('');
 
-  function persist(){state.rebateRules=rules;localStorage.setItem(storeKey,JSON.stringify(state));}
+  function persist(){try{state=JSON.parse(localStorage.getItem(storeKey)||'{}')||{};}catch{state={};}state.rebateRules=rules;state.officeRebates=officeRebates;localStorage.setItem(storeKey,JSON.stringify(state));}
   function clearForm(){$('rebate-rule-amount').value='';$('rebate-rule-expires').value='';$('rebate-family').focus();}
   function render(){
     $('rebate-count').textContent=`${rules.length} saved`;
@@ -26,13 +29,22 @@
     if(index>=0)rules[index]=next;else rules.push(next);
     persist();render();clearForm();
   }
+  function saveOfficeRebates(){
+    const daily=Number($('office-rebate-daily').value),reusable=Number($('office-rebate-reusable').value);
+    if(!Number.isFinite(daily)||daily<0||!Number.isFinite(reusable)||reusable<0){alert('Enter valid nonnegative in-office rebate amounts.');return;}
+    officeRebates={daily:Math.round(daily*100)/100,reusable:Math.round(reusable*100)/100};persist();
+    $('office-save-status').textContent='Saved';setTimeout(()=>{$('office-save-status').textContent='';},1800);
+  }
 
   document.addEventListener('click',event=>{
     const button=event.target.closest('button');if(!button)return;
+    if(button.id==='save-office-rebates'){saveOfficeRebates();return;}
     if(button.id==='save-rebate-rule'){save();return;}
     if(button.id==='clear-rebate-form'){clearForm();return;}
     if(button.dataset.editRebate){const rule=rules.find(item=>item.key===button.dataset.editRebate);if(!rule)return;$('rebate-family').value=rule.key;$('rebate-rule-amount').value=rule.amount;$('rebate-rule-expires').value=rule.expires||'';$('rebate-rule-amount').focus();return;}
     if(button.dataset.removeRebate){rules=rules.filter(rule=>rule.key!==button.dataset.removeRebate);persist();render();}
   });
+  $('office-rebate-daily').value=officeRebates.daily.toFixed(2);
+  $('office-rebate-reusable').value=officeRebates.reusable.toFixed(2);
   render();
 })();

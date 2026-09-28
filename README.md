@@ -14,7 +14,7 @@ Use **Add second lens option** when a patient wants two separate alternatives, s
 
 **Hide second option** removes Option B from the active quote and summary without clearing its saved entries; reopening it restores the previous selections.
 
-Enter the insurance allowance for the combined office quote. A checkbox turns the allowance on or off without erasing its amount. The app automatically applies the office's annual-supply rebate only when the quoted boxes provide a full annual quantity: $50 for a two-eye daily-lens supply or $25 for a two-eye monthly-lens supply, prorated by eye for mixed or one-eye quotes.
+Enter the insurance allowance for the combined office quote. A checkbox turns the allowance on or off without erasing its amount. The rebate settings page stores the office's full two-eye annual rebates, initially $50 for daily lenses and $25 for reusable/monthly lenses. The app applies them only when the quoted boxes provide a full annual quantity and prorates them by eye for mixed or one-eye quotes.
 
 Each lens option keeps its office price, benefits, rebates, and calculated totals inside the same panel as its lens selections. A final summary compares alternatives by effective monthly cost so different box sizes remain comparable.
 

@@ -3,22 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manufacturer Rebates</title>
+  <title>Rebate Settings</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="rebates.css">
   <script src="catalog.js?v=20260926-3" defer></script>
-  <script src="rebates.js?v=20260926-1" defer></script>
+  <script src="rebates.js?v=20260927-2" defer></script>
 </head>
 <body>
   <div class="rebate-page">
     <header class="rebate-header">
-      <div><div class="eyebrow">QUOTE SETTINGS</div><h1>Manufacturer rebates</h1><p>Save and update full annual-supply rebate amounts by lens family.</p></div>
+      <div><div class="eyebrow">QUOTE SETTINGS</div><h1>Rebate settings</h1><p>Manage in-office and manufacturer annual-supply rebates.</p></div>
       <a class="button-link" href="index.html">Back to quotes</a>
     </header>
     <main class="rebate-main">
-      <div class="intro">Rebates apply only when the quoted quantity qualifies as a full annual supply. A one-eye or mixed-family quote receives the matching proportional share.</div>
+      <div class="intro">Rebates apply only when the quoted quantity qualifies as a full annual supply. One-eye and mixed-lens quotes receive the matching proportional share.</div>
+      <section class="panel rebate-editor" aria-labelledby="office-rebate-heading">
+        <div class="section-head"><div><span class="step">1</span><h2 id="office-rebate-heading">In-office rebates</h2></div></div>
+        <p class="section-copy">Enter the full two-eye annual rebate for each lens type. The quote prorates these amounts for one-eye and mixed daily/reusable orders.</p>
+        <div class="fields fields-two">
+          <label>Daily lenses — annual rebate ($)<input id="office-rebate-daily" type="number" min="0" step="0.01" inputmode="decimal"></label>
+          <label>Reusable/monthly lenses — annual rebate ($)<input id="office-rebate-reusable" type="number" min="0" step="0.01" inputmode="decimal"></label>
+        </div>
+        <div class="rebate-actions"><button id="save-office-rebates" type="button" class="primary-rebate">Save in-office rebates</button><span id="office-save-status" class="save-status" role="status"></span></div>
+      </section>
       <section class="panel rebate-editor" aria-labelledby="editor-heading">
-        <div class="section-head"><div><span class="step">1</span><h2 id="editor-heading">Add or update a rebate</h2></div></div>
+        <div class="section-head"><div><span class="step">2</span><h2 id="editor-heading">Add or update a manufacturer rebate</h2></div></div>
         <div class="fields fields-three">
           <label>Lens family<select id="rebate-family"></select></label>
           <label>Full annual rebate ($)<input id="rebate-rule-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
@@ -27,7 +36,7 @@
         <div class="rebate-actions"><button id="save-rebate-rule" type="button" class="primary-rebate">Save rebate</button><button id="clear-rebate-form" type="button" class="secondary">Clear</button></div>
       </section>
       <section class="panel" aria-labelledby="saved-heading">
-        <div class="section-head"><div><span class="step">2</span><h2 id="saved-heading">Saved rebates</h2><span id="rebate-count" class="pill">0 saved</span></div></div>
+        <div class="section-head"><div><span class="step">3</span><h2 id="saved-heading">Saved manufacturer rebates</h2><span id="rebate-count" class="pill">0 saved</span></div></div>
         <div id="rebate-rule-list" class="rebate-rule-list"></div>
       </section>
     </main>

@@ -9,7 +9,7 @@
   const amount=id=>Math.max(0,Number($(id).value)||0);
   const catalog=window.LensCatalog.catalog,productById=new Map(catalog.map(item=>[item.id,item]));
   const productIdMigrations=Object.freeze({'P-AO2W12':'C204','P-AO2W24':'C205','P-AO2WA6':'C207','P-PR130':'C293','P-PR190':'C294','P-PR1A30':'C311','P-PR1A90':'C298','P-AOHG6':'C241','P-AOHGA6':'C235','P-AOHGMF6':'C181','P-AOND6':'C292','P-AOC6':'C244'});
-  let rebateRules=[],alternativeEnabled=false;
+  let rebateRules=[],officeRebates={daily:50,reusable:25},alternativeEnabled=false;
 
   function activeEyes(){const mode=$('eye-mode').value;return mode==='both'?eyes:[mode];}
   function product(eye){return productById.get($(`product-${eye}`).value);}
@@ -37,12 +37,14 @@
     if(saved?.alternative?.fields)for(const id of altTextFields)if(saved.alternative.fields[id]!==undefined)$(id).value=id.startsWith('alt-product-')?(productIdMigrations[saved.alternative.fields[id]]||saved.alternative.fields[id]):saved.alternative.fields[id];
     $('apply-allowance').checked=saved?.applyAllowance!==false;
     rebateRules=Array.isArray(saved?.rebateRules)?saved.rebateRules.filter(rule=>rule&&rule.key&&Number(rule.amount)>=0):[];
+    const savedOfficeRebates=saved?.officeRebates||{};
+    officeRebates={daily:Number.isFinite(Number(savedOfficeRebates.daily))&&Number(savedOfficeRebates.daily)>=0?Number(savedOfficeRebates.daily):50,reusable:Number.isFinite(Number(savedOfficeRebates.reusable))&&Number(savedOfficeRebates.reusable)>=0?Number(savedOfficeRebates.reusable):25};
     for(const eye of eyes)$(`boxes-${eye}`).dataset.manual=String(Boolean(saved?.manual?.[eye]));
     for(const eye of eyes)$(`alt-boxes-${eye}`).dataset.manual=String(Boolean(saved?.alternative?.manual?.[eye]));
   }
 
   function persist(){
-    try{localStorage.setItem(storeKey,JSON.stringify({fields:Object.fromEntries(textFields.map(id=>[id,$(id).value])),applyAllowance:$('apply-allowance').checked,manual:Object.fromEntries(eyes.map(eye=>[eye,$(`boxes-${eye}`).dataset.manual==='true'])),alternative:{enabled:alternativeEnabled,fields:Object.fromEntries(altTextFields.map(id=>[id,$(id).value])),manual:Object.fromEntries(eyes.map(eye=>[eye,$(`alt-boxes-${eye}`).dataset.manual==='true']))},rebateRules}));}catch{}
+    try{localStorage.setItem(storeKey,JSON.stringify({fields:Object.fromEntries(textFields.map(id=>[id,$(id).value])),applyAllowance:$('apply-allowance').checked,manual:Object.fromEntries(eyes.map(eye=>[eye,$(`boxes-${eye}`).dataset.manual==='true'])),alternative:{enabled:alternativeEnabled,fields:Object.fromEntries(altTextFields.map(id=>[id,$(id).value])),manual:Object.fromEntries(eyes.map(eye=>[eye,$(`alt-boxes-${eye}`).dataset.manual==='true']))},rebateRules,officeRebates}));}catch{}
   }
 
   function chooseProduct(eye){
@@ -90,7 +92,7 @@
   function quoteLines(priceSource){return activeEyes().map(eye=>({boxes:amount(`boxes-${eye}`),pricePerBox:priceSource(eye),lensesPerBox:product(eye)?.pack||0}));}
   function appliedAllowance(){return $('apply-allowance').checked?amount('allowance'):0;}
   function hasAnnualQuantity(eye,isAlt=false){const item=isAlt?altProduct(eye):product(eye),boxes=amount(`${isAlt?'alt-':''}boxes-${eye}`);return Boolean(item)&&boxes>=core.fullAnnualBoxes(item.pack,item.frequency,1);}
-  function officeRebateAmount(){return activeEyes().reduce((sum,eye)=>sum+(hasAnnualQuantity(eye)?(product(eye).frequency===1?25:12.5):0),0);}
+  function officeRebateAmount(){return activeEyes().reduce((sum,eye)=>sum+(hasAnnualQuantity(eye)?(product(eye).frequency===1?officeRebates.daily:officeRebates.reusable)/2:0),0);}
   function manufacturerRebateAmount(){
     return activeEyes().reduce((sum,eye)=>{const item=product(eye),rule=rebateRules.find(entry=>entry.key===familyKey(item));if(!hasAnnualQuantity(eye)||!rule||(rule.expires&&rule.expires<todayKey()))return sum;return sum+Math.max(0,Number(rule.amount)||0)/2;},0);
   }
@@ -98,7 +100,7 @@
   function officeQuote(){return core.officeQuoteLines({lines:quoteLines(eye=>amount(`office-price-${eye}`)),supplyMonths:amount('supply-months'),insuranceAllowance:appliedAllowance(),instantDiscount:0,fees:0,officeRebate:officeRebateAmount(),manufacturerRebate:manufacturerRebateAmount()});}
 
   function altQuoteLines(priceSource){return altActiveEyes().map(eye=>({boxes:amount(`alt-boxes-${eye}`),pricePerBox:priceSource(eye),lensesPerBox:altProduct(eye)?.pack||0}));}
-  function altOfficeRebateAmount(){return altActiveEyes().reduce((sum,eye)=>sum+(hasAnnualQuantity(eye,true)?(altProduct(eye).frequency===1?25:12.5):0),0);}
+  function altOfficeRebateAmount(){return altActiveEyes().reduce((sum,eye)=>sum+(hasAnnualQuantity(eye,true)?(altProduct(eye).frequency===1?officeRebates.daily:officeRebates.reusable)/2:0),0);}
   function altManufacturerRebateAmount(){
     return altActiveEyes().reduce((sum,eye)=>{const item=altProduct(eye),rule=rebateRules.find(entry=>entry.key===familyKey(item));if(!hasAnnualQuantity(eye,true)||!rule||(rule.expires&&rule.expires<todayKey()))return sum;return sum+Math.max(0,Number(rule.amount)||0)/2;},0);
   }
@@ -208,5 +210,5 @@
     if(button.id==='copy-od'){$('product-os').value=$('product-od').value;$('office-price-os').value=$('office-price-od').value;$('boxes-os').value=$('boxes-od').value;$('boxes-os').dataset.manual=$('boxes-od').dataset.manual;render();return;}
     if(button.dataset.resetBoxes){$(`boxes-${button.dataset.resetBoxes}`).dataset.manual='false';render();return;}
   });
-  window.addEventListener('storage',event=>{if(event.key==='contact-lens-order-requests-v1')renderOrderRequests();if(event.key===storeKey){try{const saved=JSON.parse(event.newValue||'null');rebateRules=Array.isArray(saved?.rebateRules)?saved.rebateRules:[];render();}catch{}}});
+  window.addEventListener('storage',event=>{if(event.key==='contact-lens-order-requests-v1')renderOrderRequests();if(event.key===storeKey){try{const saved=JSON.parse(event.newValue||'null');rebateRules=Array.isArray(saved?.rebateRules)?saved.rebateRules:[];const settings=saved?.officeRebates||{};officeRebates={daily:Number.isFinite(Number(settings.daily))&&Number(settings.daily)>=0?Number(settings.daily):50,reusable:Number.isFinite(Number(settings.reusable))&&Number(settings.reusable)>=0?Number(settings.reusable):25};render();}catch{}}});
 })();
