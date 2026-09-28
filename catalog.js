@@ -1,0 +1,63 @@
+(function(root){
+  'use strict';
+  // Patient-facing office prices transcribed from Dr. Desk Price Book > CL on 2026-09-26.
+  // ABB costs are intentionally omitted from this patient quote tool.
+  const catalog=[
+    ['C356','Bausch + Lomb','Infuse','Infuse 90pk',90,1,142],
+    ['C370','Bausch + Lomb','Infuse','Infuse for Astigmatism 90pk',90,1,166],
+    ['C358','Bausch + Lomb','Infuse','Infuse Multifocal 90pk',90,1,183],
+    ['C348','Bausch + Lomb','Biotrue','Biotrue ONEday 30pk',30,1,42],
+    ['C349','Bausch + Lomb','Biotrue','Biotrue ONEday 90pk',90,1,95],
+    ['C351','Bausch + Lomb','Biotrue','Biotrue ONEday for Astigmatism 30pk',30,1,58],
+    ['C352','Bausch + Lomb','Biotrue','Biotrue ONEday for Astigmatism 90pk',90,1,128],
+    ['C354','Bausch + Lomb','Biotrue','Biotrue ONEday for Presbyopia 30pk',30,1,34.60],
+    ['C355','Bausch + Lomb','Biotrue','Biotrue ONEday for Presbyopia 90pk',90,1,121],
+    ['C362','Bausch + Lomb','Ultra','Ultra 6pk',6,30,77],
+    ['C366','Bausch + Lomb','Ultra','Ultra for Astigmatism 6pk',6,30,92],
+    ['C368','Bausch + Lomb','Ultra','Ultra for Presbyopia 6pk',6,30,114],
+    ['C364','Bausch + Lomb','Ultra','Ultra Multifocal for Astigmatism 6pk',6,30,182],
+    ['C183','CooperVision','Biofinity','Biofinity Energys 6pk',6,30,74],
+    ['C185','CooperVision','Biofinity','Biofinity Multifocal 6pk',6,30,122],
+    ['C187','CooperVision','Biofinity','Biofinity Toric 6pk',6,30,90],
+    ['C189','CooperVision','Biofinity','Biofinity XR 6pk',6,30,69],
+    ['C191','CooperVision','Biofinity','Biofinity XR Toric 6pk',6,30,174],
+    ['C318','CooperVision','Biofinity','Biofinity Toric Multifocal Distance 6pk',6,30,185],
+    ['C319','CooperVision','Biofinity','Biofinity Toric Multifocal Near 6pk',6,30,185],
+    ['C196','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist 30pk',30,1,59],
+    ['C197','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist 90pk',90,1,110.50],
+    ['C199','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist for Astigmatism 30pk',30,1,75],
+    ['C200','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist for Astigmatism 90pk',90,1,168],
+    ['C193','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist Multifocal 30pk',30,1,97],
+    ['C194','Johnson & Johnson','Acuvue Moist','1-Day Acuvue Moist Multifocal 90pk',90,1,179],
+    ['P-AOMAX30','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day 30pk',30,1,0],
+    ['P-AOMAX90','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day 90pk',90,1,0],
+    ['P-AOMAXMF30','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day Multifocal 30pk',30,1,0],
+    ['P-AOMAXMF90','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day Multifocal 90pk',90,1,0],
+    ['P-AOMAXA30','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day for Astigmatism 30pk',30,1,0],
+    ['P-AOMAXMFA30','Johnson & Johnson','Acuvue Oasys MAX 1-Day','Acuvue Oasys MAX 1-Day Multifocal for Astigmatism 30pk',30,1,0],
+    ['P-AO1D30','Johnson & Johnson','Acuvue Oasys 1-Day','Acuvue Oasys 1-Day with HydraLuxe 30pk',30,1,0],
+    ['C210','Johnson & Johnson','Acuvue Oasys 1-Day','Acuvue Oasys 1-Day with HydraLuxe 90pk',90,1,143],
+    ['C279','Johnson & Johnson','Acuvue Oasys 1-Day','Acuvue Oasys 1-Day with HydraLuxe for Astigmatism 30pk',30,1,65],
+    ['C280','Johnson & Johnson','Acuvue Oasys 1-Day','Acuvue Oasys 1-Day with HydraLuxe for Astigmatism 90pk',90,1,160],
+    ['C204','Johnson & Johnson','Acuvue Oasys 2-Week','Acuvue Oasys with HydraClear Plus 12pk',12,14,118],
+    ['C205','Johnson & Johnson','Acuvue Oasys 2-Week','Acuvue Oasys with HydraClear Plus 24pk',24,14,185],
+    ['C207','Johnson & Johnson','Acuvue Oasys 2-Week','Acuvue Oasys for Astigmatism 6pk',6,14,69],
+    ['P-AO2WMF6','Johnson & Johnson','Acuvue Oasys 2-Week','Acuvue Oasys Multifocal 6pk',6,14,0],
+    ['C214','Johnson & Johnson','Acuvue Vita','Acuvue Vita 12pk',12,30,153],
+    ['C215','Johnson & Johnson','Acuvue Vita','Acuvue Vita 6pk',6,30,94],
+    ['C201','Johnson & Johnson','Acuvue Vita','Acuvue Vita for Astigmatism 6pk',6,30,91],
+    ['C293','Alcon','Precision1','Precision1 30pk',30,1,50],
+    ['C294','Alcon','Precision1','Precision1 90pk',90,1,108],
+    ['C311','Alcon','Precision1','Precision1 for Astigmatism 30pk',30,1,63],
+    ['C298','Alcon','Precision1','Precision1 for Astigmatism 90pk',90,1,136],
+    ['C241','Alcon','Air Optix plus HydraGlyde','Air Optix plus HydraGlyde 6pk',6,30,81],
+    ['C235','Alcon','Air Optix plus HydraGlyde','Air Optix plus HydraGlyde for Astigmatism 6pk',6,30,101],
+    ['C181','Alcon','Air Optix plus HydraGlyde','Air Optix plus HydraGlyde Multifocal 6pk',6,30,154],
+    ['C292','Alcon','Air Optix Night & Day','Air Optix Night & Day Aqua 6pk',6,30,144],
+    ['C243','Alcon','Air Optix Colors','Air Optix Colors 2pk',2,30,67],
+    ['C244','Alcon','Air Optix Colors','Air Optix Colors 6pk',6,30,171]
+  ].map(([id,manufacturer,family,name,pack,frequency,officePrice])=>Object.freeze({id,manufacturer,family,name,pack,frequency,officePrice}));
+  const api=Object.freeze({catalog:Object.freeze(catalog),priceBookDate:'2026-09-26'});
+  if(typeof module==='object'&&module.exports)module.exports=api;
+  else root.LensCatalog=api;
+})(typeof globalThis!=='undefined'?globalThis:this);

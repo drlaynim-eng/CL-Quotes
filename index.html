@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Lens Quotes</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="quote-core.js?v=20260926-4" defer></script>
+  <script src="catalog.js?v=20260926-3" defer></script>
+  <script src="app.js?v=20260926-9" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div><div class="eyebrow">IN-OFFICE QUOTING</div><h1>Contact Lens Quotes</h1><p>Build clear office quotes and take-home order requests.</p></div>
+      <div class="top-actions">
+        <span class="status">Local prototype · Data stays on this device</span>
+        <div class="header-menu">
+          <button id="settings-menu-button" type="button" class="secondary icon-menu-button" aria-label="Menu" title="Menu" aria-expanded="false" aria-controls="settings-menu"><span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span></button>
+          <div id="settings-menu" class="header-menu-panel" hidden>
+            <a class="menu-item" href="rebates.html">Manage rebates</a>
+          </div>
+        </div>
+        <div class="quote-actions">
+          <button id="create-quote" type="button" class="menu-button" aria-expanded="false" aria-controls="quote-delivery">Create quote</button>
+          <div id="quote-delivery" class="quote-delivery" hidden>
+            <button id="patient-order" type="button">Open take-home quote</button>
+            <button id="email" type="button">Email quote</button>
+            <button id="print" type="button">Print quote</button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="intro">Enter the exact lens for each eye. Verify the product, box quantity, office price, insurance allowance, and rebate eligibility before quoting a patient.</div>
+
+      <section class="panel" aria-labelledby="lens-heading">
+        <div class="section-head"><div><span class="step">1</span><h2 id="lens-heading">Lenses and quantity</h2></div><div class="section-tools"><button id="show-eye-choice" type="button" class="secondary">Choose one eye</button></div></div>
+        <div id="eye-choice" class="eye-choice" hidden><label>Eyes in this quote<select id="eye-mode"><option value="both">Both eyes</option><option value="od">OD only</option><option value="os">OS only</option></select></label></div>
+        <div class="eye-grid">
+          <article class="eye-card" data-eye-card="od">
+            <div class="eye-head"><div><h3>OD</h3><span>Right eye</span></div></div>
+            <label>Lens brand and model<select id="product-od"><option value="">Choose a lens</option></select></label>
+            <label class="box-field">OD boxes<input id="boxes-od" type="number" min="0" max="100" step="1"></label>
+            <button class="text-button" type="button" data-reset-boxes="od">Use suggested OD quantity</button>
+            <p class="fine price-source" id="price-source-od">Choose an OD lens to load its box size and office price.</p>
+          </article>
+          <button id="copy-od" type="button" class="copy-eye" aria-label="Copy OD to OS" title="Copy OD to OS"><span aria-hidden="true">›</span></button>
+          <article class="eye-card" data-eye-card="os">
+            <div class="eye-head"><div><h3>OS</h3><span>Left eye</span></div></div>
+            <label>Lens brand and model<select id="product-os"><option value="">Choose a lens</option></select></label>
+            <label class="box-field">OS boxes<input id="boxes-os" type="number" min="0" max="100" step="1"></label>
+            <button class="text-button" type="button" data-reset-boxes="os">Use suggested OS quantity</button>
+            <p class="fine price-source" id="price-source-os">Choose an OS lens to load its box size and office price.</p>
+          </article>
+        </div>
+        <div class="supply-choice"><label>Supply length<select id="supply-months"><option value="6">6 months</option><option value="12" selected>12 months</option></select></label></div>
+        <p class="fine">Suggested quantities use the selected products’ predetermined box sizes and replacement schedules. Verify and adjust either eye’s box quantity when needed.</p>
+        <div class="alternative-prices primary-prices" aria-labelledby="office-heading">
+          <div class="embedded-heading"><h3 id="office-heading">Office price and benefits</h3><span class="hint">The allowance is applied once to this option.</span></div>
+          <div class="fields fields-three">
+            <label>OD price per box ($)<input id="office-price-od" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
+            <label>OS price per box ($)<input id="office-price-os" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
+            <label>Insurance allowance ($)<input id="allowance" type="number" min="0" step="0.01" inputmode="decimal" value="0"></label>
+            <label>In-office annual rebate ($)<input id="rebate" type="number" min="0" step="0.01" inputmode="decimal" value="0" readonly></label>
+            <label>Manufacturer annual rebate ($)<input id="manufacturer-rebate" type="number" min="0" step="0.01" inputmode="decimal" value="0" readonly></label>
+          </div>
+          <label class="toggle"><input id="apply-allowance" type="checkbox" checked> Apply insurance allowance to this quote</label>
+          <div class="totals" id="office-total" aria-live="polite"></div>
+          <p class="fine">“Due today” is after any applied allowance. Annual rebates apply only when the quoted boxes provide a full annual supply and are not paid at checkout.</p>
+        </div>
+      </section>
+
+      <div class="option-actions"><button id="add-alternative" type="button" class="secondary">Add second lens option</button></div>
+
+      <section class="panel alternative-panel" id="alternative-quote" aria-labelledby="alternative-heading" hidden>
+        <div class="section-head"><div><span class="step">1B</span><h2 id="alternative-heading">Second lens option</h2><span class="pill">Alternative quote</span></div><div class="section-tools"><button id="copy-option-a" type="button" class="secondary">Copy Option A lenses</button><button id="alt-show-eye-choice" type="button" class="secondary">Choose one eye</button><button id="remove-alternative" type="button">Hide second option</button></div></div>
+        <p class="alternative-intro">Use this for a different lens type, such as comparing daily lenses with monthly lenses. This option is calculated separately and does not add to Option A.</p>
+        <div id="alt-eye-choice" class="eye-choice" hidden><label>Eyes in this option<select id="alt-eye-mode"><option value="both">Both eyes</option><option value="od">OD only</option><option value="os">OS only</option></select></label></div>
+        <div class="eye-grid">
+          <article class="eye-card" data-alt-eye-card="od">
+            <div class="eye-head"><div><h3>OD</h3><span>Right eye</span></div></div>
+            <label>Lens brand and model<select id="alt-product-od"><option value="">Choose a lens</option></select></label>
+            <label class="box-field">OD boxes<input id="alt-boxes-od" type="number" min="0" max="100" step="1"></label>
+            <button class="text-button" type="button" data-alt-reset-boxes="od">Use suggested OD quantity</button>
+            <p class="fine price-source" id="alt-price-source-od">Choose an OD lens to load its box size and office price.</p>
+          </article>
+          <button id="alt-copy-od" type="button" class="copy-eye" aria-label="Copy OD to OS" title="Copy OD to OS"><span aria-hidden="true">›</span></button>
+          <article class="eye-card" data-alt-eye-card="os">
+            <div class="eye-head"><div><h3>OS</h3><span>Left eye</span></div></div>
+            <label>Lens brand and model<select id="alt-product-os"><option value="">Choose a lens</option></select></label>
+            <label class="box-field">OS boxes<input id="alt-boxes-os" type="number" min="0" max="100" step="1"></label>
+            <button class="text-button" type="button" data-alt-reset-boxes="os">Use suggested OS quantity</button>
+            <p class="fine price-source" id="alt-price-source-os">Choose an OS lens to load its box size and office price.</p>
+          </article>
+        </div>
+        <div class="supply-choice"><label>Supply length<select id="alt-supply-months"><option value="6">6 months</option><option value="12" selected>12 months</option></select></label></div>
+        <div class="alternative-prices">
+          <h3>Office price and benefits</h3>
+          <div class="fields fields-three">
+            <label>OD price per box ($)<input id="alt-office-price-od" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
+            <label>OS price per box ($)<input id="alt-office-price-os" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
+            <label>In-office annual rebate ($)<input id="alt-rebate" type="number" value="0" readonly></label>
+            <label>Manufacturer annual rebate ($)<input id="alt-manufacturer-rebate" type="number" value="0" readonly></label>
+          </div>
+          <p class="fine">Uses the insurance allowance entered in Option A when that allowance is enabled. Benefits are applied independently to each alternative.</p>
+          <div class="totals" id="alt-office-total" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="panel quote-summary" aria-labelledby="summary-heading">
+        <div class="section-head"><div><span class="step">2</span><h2 id="summary-heading">Quote summary</h2></div><span id="quote-date"></span></div>
+        <div id="summary"></div>
+        <p class="fine">This tool creates an estimate and order request. It does not apply insurance, process payment, or submit a rebate.</p>
+      </section>
+
+      <section class="panel request-inbox" aria-labelledby="request-inbox-heading">
+        <div class="section-head"><div><span class="step">3</span><h2 id="request-inbox-heading">Patient order requests</h2><span id="request-count" class="pill">0 waiting</span></div><button id="toggle-request-inbox" type="button" class="secondary" aria-expanded="false" aria-controls="request-inbox-content">Show requests</button></div>
+        <div id="request-inbox-content" hidden>
+          <p class="hint">Requests submitted through the take-home page appear here for staff verification. In this prototype, they are stored only in this browser.</p>
+          <div id="request-list" class="request-list"></div>
+        </div>
+      </section>
+    </main>
+    <footer>Contact Lens Quotes · Local calculator prototype</footer>
+  </div>
+</body>
+</html>

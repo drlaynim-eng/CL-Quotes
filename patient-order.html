@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review Your Contact Lens Quote</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="patient-order.css">
+  <script src="patient-order.js?v=20260926-3" defer></script>
+</head>
+<body class="patient-page">
+  <div class="patient-shell">
+    <header class="patient-header">
+      <div class="eyebrow">TAKE-HOME QUOTE</div>
+      <h1>Choose your contact lens option</h1>
+      <p>Review the exact lenses, checkout amount, and estimated cost after rebates.</p>
+      <div id="quote-meta" class="quote-meta"></div>
+    </header>
+    <main class="patient-main">
+      <div id="patient-notice" class="intro">This local prototype demonstrates the patient ordering experience. It does not transmit an order or process payment.</div>
+      <section id="quote-options" class="patient-options" aria-label="Quote options"></section>
+      <section id="request-panel" class="panel request-panel" hidden aria-labelledby="request-heading">
+        <div class="section-head"><div><span class="step">2</span><h2 id="request-heading">Confirm your request</h2></div></div>
+        <div id="selected-option" class="selected-option"></div>
+        <form id="request-form">
+          <div class="fields fields-two">
+            <label>Patient name<input id="patient-name" autocomplete="name" required></label>
+            <label>Mobile phone<input id="patient-phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555"></label>
+            <label>Email<input id="patient-email" type="email" autocomplete="email" placeholder="name@example.com"></label>
+            <label>Preferred contact method<select id="contact-method"><option value="phone">Phone call</option><option value="text">Text message</option><option value="email">Email</option></select></label>
+          </div>
+          <label class="toggle consent"><input id="request-consent" type="checkbox" required> I am asking the office to contact me about this option. I understand this is not a completed purchase.</label>
+          <div class="request-actions"><button id="back-to-options" type="button" class="secondary">Choose a different option</button><button type="submit" class="primary-action">Send order request</button></div>
+        </form>
+      </section>
+      <section id="confirmation" class="panel confirmation" hidden aria-live="polite"></section>
+    </main>
+  </div>
+</body>
+</html>
