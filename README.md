@@ -1,6 +1,6 @@
 # Contact Lens Quotes
 
-A separate local prototype for comparing contact lens supply quotes. Staff choose one supply length at a time. Six- and twelve-month options are always available. Daily 30-packs also allow one- and three-month supplies; daily 90-packs allow a three-month supply. Mixed-eye quotes show only durations supported by both products. It does not use patient names or prescriptions, and it does not place orders.
+A separate local prototype for comparing contact lens supply quotes. Staff choose one supply length at a time. Daily 30-packs support one- and three-month quotes, daily 90-packs support three-, six-, and twelve-month quotes, reusable 6- and 12-packs support six- and twelve-month quotes, and biweekly 24-packs are annual-only. Mixed-eye quotes show only durations supported by both products. It does not use prescriptions, and it does not place orders.
 
 Run `python -m http.server 8010` from this directory, then open `http://localhost:8010/`. The browser saves the product and price inputs on that computer so a draft survives a refresh. This is not yet shared across staff devices.
 
@@ -23,3 +23,10 @@ Manufacturer rebates are managed on a separate settings page and stored locally 
 The header's **Create quote** menu offers a printable quote, a plain-text email draft, and a take-home quote page. The take-home page lets a patient review the saved alternatives and submit an order request with contact information. Requests return to the local staff inbox for verification; the prototype does not process payment, apply insurance, or submit rebates.
 
 Run `node scripts/test-quote.js` to check quantity and price calculations.
+
+## Google Apps Script edition
+
+The `google-apps-script/` folder contains a self-contained, shareable Apps Script web app. Unlike the local prototype, it stores take-home quotes, patient order requests, and rebate settings in the deployed script so they work across devices. Staff-only server functions require a private `STAFF_ACCESS_KEY` script property. See `google-apps-script/README.md` for deployment and security instructions.
+
+Run `node scripts/build-gas.js` after changing the browser version, then run both `node scripts/test-quote.js` and `node scripts/test-gas-build.js` before uploading a new Apps Script version.
+
