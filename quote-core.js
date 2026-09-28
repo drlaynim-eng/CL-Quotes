@@ -24,6 +24,19 @@
     return Math.ceil((12*30/days)/pack)*eyeCount;
   }
 
+  function supplyChoices(products){
+    const items=Array.isArray(products)?products.filter(Boolean):[];
+    if(!items.length)return [6,12];
+    const choicesFor=item=>{
+      const pack=whole(item.pack??item.lensesPerBox),days=whole(item.frequency??item.replacementDays);
+      if(days===1&&pack===30)return [1,3];
+      if(days===1&&pack===90)return [3,6,12];
+      if(days===14&&pack===24)return [12];
+      return [6,12];
+    };
+    return choicesFor(items[0]).filter(months=>items.slice(1).every(item=>choicesFor(item).includes(months)));
+  }
+
   function officeQuote(input){
     const boxes=whole(input.boxes),price=nonnegative(input.pricePerBox),allowance=nonnegative(input.insuranceAllowance);
     const rebate=nonnegative(input.rebate),instantDiscount=nonnegative(input.instantDiscount),fees=nonnegative(input.fees);
@@ -67,5 +80,6 @@
     return {boxes,gross,shipping,fees,discountUsed:Math.min(gross+shipping+fees,discount),dueToday,rebateUsed,effectiveTotal,effectivePerBox:boxes?money(effectiveTotal/boxes):0};
   }
 
-  return {suggestedBoxes,fullAnnualBoxes,officeQuote,officeQuoteLines,retailerQuote,retailerQuoteLines};
+  return {suggestedBoxes,fullAnnualBoxes,supplyChoices,officeQuote,officeQuoteLines,retailerQuote,retailerQuoteLines};
 });
+
